@@ -6,8 +6,10 @@ namespace AvaloniaPdfViewer;
 
 public partial class PdfViewer : UserControl
 {
+    private PdfViewerViewModel? ViewModel => DataContext as PdfViewerViewModel;
     public PdfViewer()
     {
+        DataContext = new PdfViewerViewModel();
         InitializeComponent();
     }
 }
