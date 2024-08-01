@@ -4,9 +4,31 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:avaloniaPdfViewer="clr-namespace:AvaloniaPdfViewer"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-             x:Class="AvaloniaPdfViewer.PdfViewer"
-             x:DataType="avaloniaPdfViewer:PdfViewerViewModel">
-    <ScrollViewer HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Visible">
-        <Image Source="{Binding Image}" Width="800" Height="1000"/>
-    </ScrollViewer>
+             x:Class="AvaloniaPdfViewer.PdfViewer">
+    <Design.DataContext>
+        <avaloniaPdfViewer:PdfViewerViewModel />
+    </Design.DataContext>
+    <DockPanel>
+        <ListBox DockPanel.Dock="Left" ItemsSource="{Binding ThumbnailImages}">
+            <ListBox.Styles> 
+                <Style Selector="ListBoxItem">
+                    <Setter Property="Padding" Value="10" />
+                    <Setter Property="Margin" Value="10" />
+                </Style> 
+            </ListBox.Styles>
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Panel>
+                        <Image Source="{Binding Image}" Stretch="Uniform" Width="200"/>
+                        <Border HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="10" CornerRadius="10" Padding="5, 2.5" Background="Gray">
+                            <TextBlock Text="{Binding PageNumberText}" HorizontalAlignment="Center" Foreground="White"/>
+                        </Border>
+                    </Panel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+        <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+            <Image Source="{Binding Image}" Stretch="Uniform"/>
+        </ScrollViewer>
+    </DockPanel>
 </UserControl>

@@ -12,10 +12,5 @@
          to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
     <vm:MainViewModel />
   </Design.DataContext>
-
-    <StackPanel>
-      <TextBlock Text="{Binding Greeting}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-      <avaloniaPdfViewer:PdfViewer/>
-    </StackPanel>
-  
+    <avaloniaPdfViewer:PdfViewer/>
 </UserControl>

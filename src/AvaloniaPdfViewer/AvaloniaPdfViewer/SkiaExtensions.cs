@@ -7,6 +7,7 @@ using SkiaSharp;
 
 namespace AvaloniaPdfViewer;
 
+//https://github.com/AvaloniaUI/Avalonia/discussions/13610
 static class SkiaExtensions
 {
     private record class SKBitmapDrawOperation : ICustomDrawOperation
