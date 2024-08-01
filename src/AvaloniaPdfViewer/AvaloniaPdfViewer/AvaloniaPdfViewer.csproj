@@ -10,7 +10,10 @@
       <PackageReference Include="Avalonia" Version="11.0.10" />
       <PackageReference Include="Avalonia.ReactiveUI" Version="11.0.10" />
       <PackageReference Include="Avalonia.Skia" Version="11.0.10" />
-      <PackageReference Include="PDFtoImage" Version="4.1.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\..\..\..\PDFtoImage\src\PDFtoImage\PDFtoImage.csproj" />
     </ItemGroup>
 
 </Project>

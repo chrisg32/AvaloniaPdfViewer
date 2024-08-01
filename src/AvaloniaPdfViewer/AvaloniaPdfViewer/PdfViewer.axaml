@@ -19,7 +19,7 @@
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <Panel>
-                        <Image Source="{Binding Image}" Stretch="Uniform" Width="200"/>
+                        <Image Source="{Binding .}" Stretch="Uniform" Width="200"/>
                         <Border HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="10" CornerRadius="10" Padding="5, 2.5" Background="Gray">
                             <TextBlock Text="{Binding PageNumberText}" HorizontalAlignment="Center" Foreground="White"/>
                         </Border>
