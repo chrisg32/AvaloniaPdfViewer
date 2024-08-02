@@ -12,4 +12,8 @@
     <Application.Styles>
         <FluentTheme />
     </Application.Styles>
+             
+     <Application.Resources>
+         <FontFamily x:Key="MaterialSymbols">avares://AvaloniaPdfViewer/Assets/Fonts#Material Symbols Outlined</FontFamily>
+     </Application.Resources>
 </Application>

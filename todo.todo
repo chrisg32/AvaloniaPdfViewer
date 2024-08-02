@@ -1,0 +1,35 @@
+Preview Release:
+  Branding:
+    ☐ Icon
+    ☐ README
+    ☐ Screenshots
+  Unit testing:
+  CI/CD:
+    ☐ Badges
+      ☐ build
+      ☐ tests
+      ☐ license
+      ☐ nuget
+      ☐ nuget downloads
+  API:
+    ☐ Pdf Source
+      ☐ File path (string)
+      ☐ Stream
+    ☐ Show sidebar (two way binding)
+    ☐ Show sidebar button
+    ☐ Show zoom controls
+    ☐ Show page controls
+    ☐ Page (two way binding)
+    ☐ Zoom (two way binding)
+  Control:
+    ☐ Zoom controls
+    ☐ Toggle sidebar
+      ☐ Animation
+    ☐ Page selection @critical
+  Misc:
+    ☐ Proper disposal/closing of streams
+    ☐ Need PdfToImage PR to be accepted and nuget package released
+ Future:
+   ☐ Localization
+   ☐ Minimal Icon Set
+   ☐ Better styling/theming support
