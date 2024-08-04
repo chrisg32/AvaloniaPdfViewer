@@ -1,8 +1,6 @@
 using System.Collections.ObjectModel;
-using System.Diagnostics;
 using System.Reactive.Linq;
 using Avalonia.Media;
-using Avalonia.Media.Imaging;
 using AvaloniaPdfViewer.Internals;
 using DynamicData;
 using DynamicData.Binding;
@@ -10,7 +8,7 @@ using ReactiveUI;
 using SkiaSharp;
 
 namespace AvaloniaPdfViewer;
-using PDFtoImage;
+
 using PdfConvert = PDFtoImage.Conversion;
 internal class PdfViewerViewModel
 {
@@ -41,15 +39,16 @@ internal class PdfViewerViewModel
         // });
         
         // Image = ThumbnailImages.First().Image;
-        var doc =  PDFtoImage.Internals.PdfDocument.Load(fileStream, null, false);
+        var doc =  PdfDocumentReflection.Load(fileStream, null, false);
+        var sizes = PdfDocumentReflection.PageSizes(doc);
 
-        PageCount = doc.PageSizes.Count;
+        PageCount = sizes.Count;
         
         var thumbnailCache = new DisposingLimitCache<int, SKBitmap>(GlobalSettings.ThumbnailCacheSize);
 
         cache.Edit(edit =>
         {
-            edit.Load(doc.PageSizes.Select((size, index) => new DrawableThumbnailImage(size, fileStream, index, thumbnailCache)));
+            edit.Load(sizes.Select((size, index) => new DrawableThumbnailImage(size, fileStream, index, thumbnailCache)));
         });
         
 

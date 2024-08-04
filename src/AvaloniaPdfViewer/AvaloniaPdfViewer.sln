@@ -12,8 +12,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AvaloniaPdfViewerExample.Br
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AvaloniaPdfViewer", "AvaloniaPdfViewer\AvaloniaPdfViewer.csproj", "{7B054C6A-EBB4-4C34-BCF9-8465DD2568DA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PDFtoImage", "..\..\..\PDFtoImage\src\PDFtoImage\PDFtoImage.csproj", "{A6F86FA0-87FE-406E-BA86-5A128D59DA12}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -48,9 +46,5 @@ Global
 		{7B054C6A-EBB4-4C34-BCF9-8465DD2568DA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7B054C6A-EBB4-4C34-BCF9-8465DD2568DA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7B054C6A-EBB4-4C34-BCF9-8465DD2568DA}.Release|Any CPU.Build.0 = Release|Any CPU
-		{A6F86FA0-87FE-406E-BA86-5A128D59DA12}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A6F86FA0-87FE-406E-BA86-5A128D59DA12}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A6F86FA0-87FE-406E-BA86-5A128D59DA12}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A6F86FA0-87FE-406E-BA86-5A128D59DA12}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
