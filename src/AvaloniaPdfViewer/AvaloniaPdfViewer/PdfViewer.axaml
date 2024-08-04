@@ -50,12 +50,18 @@
                 </ComboBox>
             </StackPanel>
         </Grid>
-        <ListBox DockPanel.Dock="Left" ItemsSource="{Binding ThumbnailImages}">
+        <ListBox DockPanel.Dock="Left" ItemsSource="{Binding ThumbnailImages}" Classes.open="{Binding #ExpandSidebarButton.IsChecked}" Classes.closed="{Binding !#ExpandSidebarButton.IsChecked}">
             <ListBox.Styles> 
                 <Style Selector="ListBoxItem">
                     <Setter Property="Padding" Value="10" />
                     <Setter Property="Margin" Value="10" />
-                </Style> 
+                </Style>
+                <Style Selector="ListBox.open">
+                    <Setter Property="IsVisible" Value="True"/>
+                </Style>
+                <Style Selector="ListBox.closed">
+                    <Setter Property="IsVisible" Value="False"/>
+                </Style>
             </ListBox.Styles>
             <ListBox.ItemTemplate>
                 <DataTemplate>
