@@ -5,13 +5,12 @@ using Avalonia.Media;
 using Avalonia.Platform;
 using Avalonia.Rendering.SceneGraph;
 using Avalonia.Skia;
-using AvaloniaPdfViewer.Internals;
 using SkiaSharp;
 using Point = Avalonia.Point;
 using Size = Avalonia.Size;
 using PdfConvert = PDFtoImage.Conversion;
 
-namespace AvaloniaPdfViewer;
+namespace AvaloniaPdfViewer.Internals;
 
 //todo for later, make reactive and load images in background thread
 internal class DrawableThumbnailImage : IImage, IDisposable

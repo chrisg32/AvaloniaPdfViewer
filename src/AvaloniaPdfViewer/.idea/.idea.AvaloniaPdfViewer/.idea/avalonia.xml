@@ -3,7 +3,7 @@
   <component name="AvaloniaProject">
     <option name="projectPerEditor">
       <map>
-        <entry key="AvaloniaPdfViewer/PdfViewer.axaml" value="AvaloniaPdfViewerExample/AvaloniaPdfViewerExample.Browser/AvaloniaPdfViewerExample.Browser.csproj" />
+        <entry key="AvaloniaPdfViewer/PdfViewer.axaml" value="AvaloniaPdfViewerExample/AvaloniaPdfViewerExample.Desktop/AvaloniaPdfViewerExample.Desktop.csproj" />
         <entry key="AvaloniaPdfViewerExample/AvaloniaPdfViewerExample/App.axaml" value="AvaloniaPdfViewerExample/AvaloniaPdfViewerExample.Browser/AvaloniaPdfViewerExample.Browser.csproj" />
         <entry key="AvaloniaPdfViewerExample/AvaloniaPdfViewerExample/Views/MainView.axaml" value="AvaloniaPdfViewerExample/AvaloniaPdfViewerExample.Browser/AvaloniaPdfViewerExample.Browser.csproj" />
       </map>

@@ -12,5 +12,5 @@
          to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
     <vm:MainViewModel />
   </Design.DataContext>
-    <avaloniaPdfViewer:PdfViewer/>
+    <avaloniaPdfViewer:PdfViewer Source="../../../../pdfreference1.0.pdf"/>
 </UserControl>
