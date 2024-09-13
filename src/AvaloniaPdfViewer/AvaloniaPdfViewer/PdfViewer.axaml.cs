@@ -40,6 +40,8 @@ public partial class PdfViewer : UserControl
         set => SetAndRaise(SourceProperty, ref _source, value);
     }
     
+    public int ThumbnailCacheSize { get; set; } = 10;
+    
     private readonly SourceCache<DrawableThumbnailImage, int> _thumbnailImagesCache = new(i => i.PageNumber);
     private readonly ReadOnlyObservableCollection<DrawableThumbnailImage> _thumbnailImages;
     private ReadOnlyObservableCollection<DrawableThumbnailImage> ThumbnailImages => _thumbnailImages;
@@ -64,7 +66,7 @@ public partial class PdfViewer : UserControl
         PageSelector.Maximum = sizes.Count;
         PageCount.Text = sizes.Count.ToString();
         
-        var thumbnailCache = new DisposingLimitCache<int, SKBitmap>(GlobalSettings.ThumbnailCacheSize);
+        var thumbnailCache = new DisposingLimitCache<int, SKBitmap>(ThumbnailCacheSize);
         
         _thumbnailImagesCache.Edit(edit =>
         {
