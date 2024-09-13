@@ -5,10 +5,13 @@
              xmlns:avaloniaPdfViewer="clr-namespace:AvaloniaPdfViewer"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="AvaloniaPdfViewer.PdfViewer">
-    <Design.DataContext>
-        <avaloniaPdfViewer:PdfViewerViewModel />
-    </Design.DataContext>
     <DockPanel>
+        <DockPanel.DataContext>
+            <avaloniaPdfViewer:PdfViewerViewModel/>
+        </DockPanel.DataContext>
+        <Design.DataContext>
+            <avaloniaPdfViewer:PdfViewerViewModel />
+        </Design.DataContext>
         <Grid ColumnDefinitions="Auto, *, Auto" DockPanel.Dock="Top">
             <StackPanel Grid.Column="0" Orientation="Horizontal" Margin="5" Spacing="5">
                 <ToggleButton x:Name="ExpandSidebarButton" IsChecked="True">

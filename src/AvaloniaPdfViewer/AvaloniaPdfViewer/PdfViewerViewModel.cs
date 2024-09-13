@@ -6,59 +6,53 @@ using DynamicData;
 using DynamicData.Binding;
 using ReactiveUI;
 using SkiaSharp;
+using PdfConvert = PDFtoImage.Conversion;
 
 namespace AvaloniaPdfViewer;
 
-using PdfConvert = PDFtoImage.Conversion;
-internal class PdfViewerViewModel
+internal class PdfViewerViewModel : ReactiveObject
 {
+    private readonly SourceCache<DrawableThumbnailImage, int> _thumbnailImagesCache = new(i => i.PageNumber);
     private ReadOnlyObservableCollection<DrawableThumbnailImage> _thumbnailImages;
     public ReadOnlyObservableCollection<DrawableThumbnailImage> ThumbnailImages => _thumbnailImages;
     public IImage? Image { get; private set; }
     public int PageCount { get; set; }
     public PdfViewerViewModel()
     {
-        var cache = new SourceCache<DrawableThumbnailImage, int>(i => i.PageNumber);
-
-        cache.Connect()
+        _thumbnailImagesCache.Connect()
             .Sort(SortExpressionComparer<DrawableThumbnailImage>.Ascending(i => i.Index))
             .ObserveOn(RxApp.MainThreadScheduler)
             .Bind(out _thumbnailImages)
             .DisposeMany()
             .Subscribe();
-        
-        const string filePath = "../../../../pdfreference1.0.pdf";
-        
-        var fileStream = File.OpenRead(filePath);
+    }
 
-        Task.Delay(10000).Wait();
-
-        // cache.Edit(edit =>
-        // {
-        //     edit.Load(PdfConvert.ToImages(fileStream, leaveOpen: true).Select((bitmap, index) => new ThumbnailImage{ PageNumber = index + 1, Image = bitmap.ToAvaloniaImage()}));
-        // });
+    public void Load(string? source)
+    {
+        if(string.IsNullOrWhiteSpace(source) || !File.Exists(source))
+        {
+            _thumbnailImagesCache.Clear();
+            Image = null;
+            PageCount = 0;
+            return;
+        }
         
-        // Image = ThumbnailImages.First().Image;
+        var fileStream = File.OpenRead(source);
+        
         var doc =  PdfDocumentReflection.Load(fileStream, null, false);
         var sizes = PdfDocumentReflection.PageSizes(doc);
-
+        
         PageCount = sizes.Count;
         
         var thumbnailCache = new DisposingLimitCache<int, SKBitmap>(GlobalSettings.ThumbnailCacheSize);
-
-        cache.Edit(edit =>
+        
+        _thumbnailImagesCache.Edit(edit =>
         {
             edit.Load(sizes.Select((size, index) => new DrawableThumbnailImage(size, fileStream, index, thumbnailCache)));
         });
         
-
         var skbitMap = PdfConvert.ToImage(fileStream, new Index(0), leaveOpen: true);
-
-        // var memoryStream = skbitMap.Encode(SKEncodedImageFormat.Png, 100).AsStream();
-        // Image = new Bitmap(memoryStream);
-
+        
         Image = skbitMap.ToAvaloniaImage();
     }
-
-    
 }
