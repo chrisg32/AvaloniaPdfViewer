@@ -16,7 +16,7 @@ namespace AvaloniaPdfViewer.Internals;
 internal class DrawableThumbnailImage : IImage, IDisposable
 {
     private readonly DisposingLimitCache<int, SKBitmap> _cache;
-    private CachingSkBitmapDrawOperation _drawOperation;
+    private readonly CachingSkBitmapDrawOperation _drawOperation;
     public int Index { get; }
     public int PageNumber => Index + 1;
     //todo handle in ui, being lazy right now
@@ -81,12 +81,4 @@ internal class DrawableThumbnailImage : IImage, IDisposable
 
         public Rect Bounds { get; set; }
     }
-}
-
-public record ThumbnailImage
-{
-    //todo handle in ui, being lazy right now
-    public string PageNumberText => $"Page {PageNumber}";
-    public int PageNumber { get; init; }
-    public IImage Image { get; init; }
 }
