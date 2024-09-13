@@ -5,12 +5,12 @@ using Avalonia.Rendering.SceneGraph;
 using Avalonia.Skia;
 using SkiaSharp;
 
-namespace AvaloniaPdfViewer;
+namespace AvaloniaPdfViewer.Internals;
 
 //https://github.com/AvaloniaUI/Avalonia/discussions/13610
-static class SkiaExtensions
+internal static class SkiaExtensions
 {
-    private record class SKBitmapDrawOperation : ICustomDrawOperation
+    private record SKBitmapDrawOperation : ICustomDrawOperation
     {
         public Rect Bounds { get; set; }
 
@@ -46,7 +46,7 @@ static class SkiaExtensions
         public AvaloniaImage(SKBitmap? source)
         {
             _source = source;
-            if (source?.Info.Size is SKSizeI size)
+            if (source?.Info.Size is { } size)
             {
                 Size = new(size.Width, size.Height);
             }
@@ -71,7 +71,7 @@ static class SkiaExtensions
         }
     }
 
-    public static SKBitmap? ToSKBitmap(this System.IO.Stream? stream)
+    public static SKBitmap? ToSKBitmap(this Stream? stream)
     {
         if (stream == null)
             return null;

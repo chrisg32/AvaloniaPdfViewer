@@ -63,7 +63,7 @@
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <Panel>
-                        <Image Source="{Binding .}" Stretch="Uniform" Width="200" MaxHeight="240"/>
+                        <Image Source="{Binding .}" Stretch="Uniform" Width="180" MaxHeight="220"/>
                         <Border HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="10" CornerRadius="10" Padding="5, 2.5" Background="Gray">
                             <TextBlock Text="{Binding PageNumberText}" HorizontalAlignment="Center" Foreground="White"/>
                         </Border>

@@ -2,7 +2,6 @@ using System.Collections.ObjectModel;
 using System.Reactive.Linq;
 using Avalonia;
 using Avalonia.Controls;
-using Avalonia.Media;
 using AvaloniaPdfViewer.Internals;
 using DynamicData;
 using DynamicData.Binding;

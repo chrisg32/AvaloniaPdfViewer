@@ -4,7 +4,7 @@ using System.Reflection;
 namespace AvaloniaPdfViewer.Internals;
 
 //https://github.com/sungaila/PDFtoImage/issues/93#issuecomment-2264905557
-public static class PdfDocumentReflection
+internal static class PdfDocumentReflection
 {
     private static readonly Type PdfDocumentType = typeof(PDFtoImage.Conversion).Assembly.GetType("PDFtoImage.Internals.PdfDocument")!;
 
