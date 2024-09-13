@@ -6,12 +6,6 @@
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="AvaloniaPdfViewer.PdfViewer">
     <DockPanel>
-        <DockPanel.DataContext>
-            <avaloniaPdfViewer:PdfViewerViewModel/>
-        </DockPanel.DataContext>
-        <Design.DataContext>
-            <avaloniaPdfViewer:PdfViewerViewModel />
-        </Design.DataContext>
         <Grid ColumnDefinitions="Auto, *, Auto" DockPanel.Dock="Top">
             <StackPanel Grid.Column="0" Orientation="Horizontal" Margin="5" Spacing="5">
                 <ToggleButton x:Name="ExpandSidebarButton" IsChecked="True">
@@ -23,20 +17,20 @@
                             <Setter Property="Text" Value="&#xf716;"/>
                         </Style>
                     </ToggleButton.Styles>
-                    <TextBlock Classes.open="{Binding #ExpandSidebarButton.IsChecked}" Classes.closed="{Binding !#ExpandSidebarButton.IsChecked}" Foreground="White" FontSize="22" FontFamily="{StaticResource MaterialSymbols}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <TextBlock Classes.open="{Binding #ExpandSidebarButton.IsChecked}" Classes.closed="{Binding !#ExpandSidebarButton.IsChecked}" Foreground="White" FontSize="22" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                 </ToggleButton>
-                <NumericUpDown FormatString="0" Minimum="1" Maximum="{Binding PageCount}" MinWidth="130" VerticalAlignment="Center"/>
+                <NumericUpDown x:Name="PageSelector" FormatString="0" Minimum="1" MinWidth="130" VerticalAlignment="Center"/>
                 <TextBlock VerticalAlignment="Center">
                     <Run>of</Run>
-                    <Run Text="{Binding PageCount}"/>
+                    <Run x:Name="PageCount"/>
                 </TextBlock>
             </StackPanel>
             <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center" Margin="5" Spacing="5">
                 <Button>
-                    <TextBlock Text="&#xe900;" Foreground="White" FontSize="22" FontFamily="{StaticResource MaterialSymbols}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <TextBlock Text="&#xe900;" Foreground="White" FontSize="22" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                 </Button>
                 <Button>
-                    <TextBlock Text="&#xe8ff;" Foreground="White" FontSize="22" FontFamily="{StaticResource MaterialSymbols}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <TextBlock Text="&#xe8ff;" Foreground="White" FontSize="22" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                 </Button>
                 <ComboBox SelectedIndex="0" VerticalAlignment="Center">
                     <ComboBoxItem>Automatic Zoom</ComboBoxItem>
@@ -53,7 +47,7 @@
                 </ComboBox>
             </StackPanel>
         </Grid>
-        <ListBox DockPanel.Dock="Left" ItemsSource="{Binding ThumbnailImages}" Classes.open="{Binding #ExpandSidebarButton.IsChecked}" Classes.closed="{Binding !#ExpandSidebarButton.IsChecked}">
+        <ListBox DockPanel.Dock="Left" SelectionChanged="ThumbnailSelectionChanged" ItemsSource="{Binding $parent[avaloniaPdfViewer:PdfViewer].ThumbnailImages}" Classes.open="{Binding #ExpandSidebarButton.IsChecked}" Classes.closed="{Binding !#ExpandSidebarButton.IsChecked}">
             <ListBox.Styles> 
                 <Style Selector="ListBoxItem">
                     <Setter Property="Padding" Value="10" />
@@ -69,7 +63,7 @@
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <Panel>
-                        <Image Source="{Binding .}" Stretch="Uniform" Width="200"/>
+                        <Image Source="{Binding .}" Stretch="Uniform" Width="200" MaxHeight="240"/>
                         <Border HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="10" CornerRadius="10" Padding="5, 2.5" Background="Gray">
                             <TextBlock Text="{Binding PageNumberText}" HorizontalAlignment="Center" Foreground="White"/>
                         </Border>
@@ -78,7 +72,7 @@
             </ListBox.ItemTemplate>
         </ListBox>
         <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
-            <Image Source="{Binding Image}" Stretch="Uniform"/>
+            <Image x:Name="MainImage" Stretch="Uniform"/>
         </ScrollViewer>
     </DockPanel>
 </UserControl>

@@ -28,7 +28,7 @@ Preview Release:
     ☐ Page selection @critical
   Misc:
     ☐ Proper disposal/closing of streams
-    ☐ Need PdfToImage PR to be accepted and nuget package released
+    ✘ Need PdfToImage PR to be accepted and nuget package released @cancelled (24-09-13 14:50)
  Future:
    ☐ Localization
    ☐ Minimal Icon Set

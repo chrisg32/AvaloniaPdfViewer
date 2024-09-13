@@ -15,7 +15,6 @@
 
     <ItemGroup>
       <None Remove="Assets\Fonts\MaterialSymbolsOutlined.ttf" />
-      <AvaloniaResource Include="Assets\Fonts\MaterialSymbolsOutlined.ttf" />
     </ItemGroup>
 
 </Project>
