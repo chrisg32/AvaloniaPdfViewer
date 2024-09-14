@@ -27,7 +27,7 @@
                     </ToggleButton.Styles>
                     <PathIcon Classes.open="{Binding #ExpandSidebarButton.IsChecked}" Classes.closed="{Binding !#ExpandSidebarButton.IsChecked}" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" />
                 </ToggleButton>
-                <NumericUpDown x:Name="PageSelector" FormatString="0" Minimum="1" MinWidth="130" VerticalAlignment="Center"/>
+                <NumericUpDown x:Name="PageSelector" FormatString="0" Minimum="1" MinWidth="130" VerticalAlignment="Center" ValueChanged="PageSelector_OnValueChanged"/>
                 <TextBlock VerticalAlignment="Center">
                     <Run>of</Run>
                     <Run x:Name="PageCount"/>
@@ -63,7 +63,7 @@
                 </ComboBox>
             </StackPanel>
         </Grid>
-        <ListBox DockPanel.Dock="Left" SelectionChanged="ThumbnailSelectionChanged" ItemsSource="{Binding $parent[avaloniaPdfViewer:PdfViewer].ThumbnailImages}" Classes.open="{Binding #ExpandSidebarButton.IsChecked}" Classes.closed="{Binding !#ExpandSidebarButton.IsChecked}">
+        <ListBox x:Name="ThumbnailListBox" DockPanel.Dock="Left" SelectionChanged="ThumbnailListBox_SelectionChanged" ItemsSource="{Binding $parent[avaloniaPdfViewer:PdfViewer].ThumbnailImages}" Classes.open="{Binding #ExpandSidebarButton.IsChecked}" Classes.closed="{Binding !#ExpandSidebarButton.IsChecked}">
             <ListBox.Styles> 
                 <Style Selector="ListBoxItem">
                     <Setter Property="Padding" Value="10" />

@@ -1,6 +1,6 @@
 namespace AvaloniaPdfViewer.Internals;
 
-internal class DisposingLimitCache<TKey, TValue>(int maxSize)
+internal class DisposingLimitCache<TKey, TValue>(int maxSize) : IDisposable
     where TValue : IDisposable where TKey : notnull
 {
     private readonly Dictionary<TKey, TValue> _cache = new();
@@ -46,5 +46,16 @@ internal class DisposingLimitCache<TKey, TValue>(int maxSize)
         }
 
         return value;
+    }
+
+    public void Dispose()
+    {
+        foreach (var value in _cache.Values)
+        {
+            value.Dispose();
+        }
+        
+        _cache.Clear();
+        _order.Clear();
     }
 }

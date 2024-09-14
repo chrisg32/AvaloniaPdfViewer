@@ -12,24 +12,25 @@ Preview Release:
       ☐ nuget
       ☐ nuget downloads
   API:
-    ☐ Pdf Source
-      ☐ File path (string)
-      ☐ Stream
-    ☐ Show sidebar (two way binding)
-    ☐ Show sidebar button
-    ☐ Show zoom controls
-    ☐ Show page controls
-    ☐ Page (two way binding)
-    ☐ Zoom (two way binding)
+    ✔ Pdf Source @done (24-09-14 08:08)
+      ✔ File path (string) @done (24-09-14 08:08)
+      ✘ Stream @cancelled (24-09-14 08:08)
+    ☐ Show sidebar (two way binding) (DirectProperty)
+    ☐ Show sidebar button (StyledProperty)
+    ☐ Show zoom controls (StyledProperty)
+    ☐ Show page controls (StyledProperty)
+    ☐ Page (two way binding) (DirectProperty)
+    ☐ Zoom (two way binding) (DirectProperty)
   Control:
     ☐ Zoom controls
-    ☐ Toggle sidebar
-      ☐ Animation
-    ☐ Page selection @critical
+    ✔ Toggle sidebar @done (24-09-14 08:09)
+      ✘ Animation @cancelled (24-09-14 08:09)
+    ✔ Page selection @done (24-09-14 08:09)
+    ☐ Scrolling through pages (main view)
   Misc:
-    ☐ Proper disposal/closing of streams
+    ✔ Proper disposal/closing of streams @done (24-09-14 08:09)
     ✘ Need PdfToImage PR to be accepted and nuget package released @cancelled (24-09-13 14:50)
  Future:
    ☐ Localization
-   ☐ Minimal Icon Set
+   ✘ Minimal Icon Set @cancelled (24-09-14 08:10)
    ☐ Better styling/theming support
