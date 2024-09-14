@@ -2,6 +2,7 @@ using System.Collections.ObjectModel;
 using System.Reactive.Linq;
 using Avalonia;
 using Avalonia.Controls;
+using Avalonia.Interactivity;
 using AvaloniaPdfViewer.Internals;
 using DynamicData;
 using DynamicData.Binding;
@@ -29,13 +30,28 @@ public partial class PdfViewer : UserControl, IDisposable
             .DisposeMany()
             .Subscribe();
         
+        //add default zoom levels
+        _zoomLevelsCache.AddRange(_defaultZoomLevels);
+        
+        _zoomLevelsCache.Connect()
+            .Sort(SortExpressionComparer<Zoom>.Ascending(z => z))
+            .ObserveOn(RxApp.MainThreadScheduler)
+            .Bind(out _zoomLevels)
+            .Subscribe();
+        
         InitializeComponent();
     }
     
-    // ReSharper disable once UnusedMember.Local
-    private List<Zoom> ZoomLevels { get; } =
+    private string? _source;
+    public string? Source
+    {
+        get => _source;
+        set => SetAndRaise(SourceProperty, ref _source, value);
+    }
+
+    private readonly List<Zoom> _defaultZoomLevels =
     [
-        Zoom.Automatic,
+        AvaloniaPdfViewer.Zoom.Automatic,
         0.25,
         0.5,
         0.75,
@@ -52,14 +68,6 @@ public partial class PdfViewer : UserControl, IDisposable
         5
     ];
     
-
-    private string? _source;
-    public string? Source
-    {
-        get => _source;
-        set => SetAndRaise(SourceProperty, ref _source, value);
-    }
-    
     // ReSharper disable once MemberCanBePrivate.Global
     public int ThumbnailCacheSize { get; set; } = 10;
     
@@ -67,6 +75,10 @@ public partial class PdfViewer : UserControl, IDisposable
     private readonly ReadOnlyObservableCollection<DrawableThumbnailImage> _thumbnailImages;
     // ReSharper disable once UnusedMember.Local
     private ReadOnlyObservableCollection<DrawableThumbnailImage> ThumbnailImages => _thumbnailImages;
+    
+    private readonly SourceList<Zoom> _zoomLevelsCache = new();
+    private readonly ReadOnlyObservableCollection<Zoom> _zoomLevels;
+    private ReadOnlyObservableCollection<Zoom> ZoomLevels => _zoomLevels;
     
     private Stream? _fileStream;
     private DisposingLimitCache<int, SKBitmap>? _bitmapCache;
@@ -191,12 +203,48 @@ public partial class PdfViewer : UserControl, IDisposable
         MainImage.Height = height;
     }
 
+    private void Zoom(double delta)
+    {
+        if (ZoomCombobox.SelectedItem is not Zoom currentZoom) return;
+        if(currentZoom == 0) return;
+        if (!_defaultZoomLevels.Contains(currentZoom))
+        {
+            _zoomLevelsCache.Remove(currentZoom);
+        }
+        var newZoom = currentZoom + delta;
+        if (!_defaultZoomLevels.Contains(newZoom))
+        {
+            _zoomLevelsCache.Add(newZoom);
+        }
+
+        if (newZoom > 0)
+        {
+            ZoomCombobox.SelectedIndex = ZoomLevels.IndexOf(newZoom);
+        }
+    }
     private void PercentageZoom(double percentage)
     {
+        if (percentage <= 0) return;
         if (PageSelector.Value == null) return;
         var index = ((int)PageSelector.Value) - 1;
         var imageSize = ThumbnailImages[index].Size;
         MainImage.Width = imageSize.Width * percentage;
         MainImage.Height = imageSize.Height * percentage;
+    }
+
+    private void ZoomCombobox_OnSelectionChanged(object? sender, SelectionChangedEventArgs e)
+    {
+        if(ZoomCombobox == null) return;
+        ApplyZoom();
+    }
+
+    private void ZoomOutButton_OnClick(object? sender, RoutedEventArgs e)
+    {
+        Zoom(-0.25);
+    }
+
+    private void ZoomInButton_OnClick(object? sender, RoutedEventArgs e)
+    {
+        Zoom(0.25);
     }
 }
