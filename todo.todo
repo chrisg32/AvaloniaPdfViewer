@@ -23,6 +23,7 @@ Preview Release:
     ☐ Zoom (two way binding) (DirectProperty)
   Control:
     ☐ Zoom controls
+      ✔ Handle window resize when automatic zoom @done (24-09-14 15:20)
     ✔ Toggle sidebar @done (24-09-14 08:09)
       ✘ Animation @cancelled (24-09-14 08:09)
     ✔ Page selection @done (24-09-14 08:09)

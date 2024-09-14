@@ -83,7 +83,6 @@ public partial class PdfViewer : UserControl, IDisposable
     private Stream? _fileStream;
     private DisposingLimitCache<int, SKBitmap>? _bitmapCache;
     private bool _loading;
-    private int _pageIndex;
 
     private void Load(AvaloniaPropertyChangedEventArgs args)
     {
@@ -206,19 +205,30 @@ public partial class PdfViewer : UserControl, IDisposable
     private void Zoom(double delta)
     {
         if (ZoomCombobox.SelectedItem is not Zoom currentZoom) return;
-        if(currentZoom == 0) return;
+        if (currentZoom == 0)
+        {
+            //todo calculate the current percentage zoom based on the relative size of the image
+            if (PageSelector.Value == null) return;
+            var viewWidth = MainImageScrollViewer.Bounds.Size.Width;
+            var viewHeight = MainImageScrollViewer.Bounds.Size.Height;
+            var index = ((int)PageSelector.Value) - 1;
+            var imageSize = ThumbnailImages[index].Size;
+            
+            //todo clamp to nearest 25% increment
+        }
+        
         if (!_defaultZoomLevels.Contains(currentZoom))
         {
             _zoomLevelsCache.Remove(currentZoom);
         }
         var newZoom = currentZoom + delta;
-        if (!_defaultZoomLevels.Contains(newZoom))
-        {
-            _zoomLevelsCache.Add(newZoom);
-        }
-
         if (newZoom > 0)
         {
+            if (!_defaultZoomLevels.Contains(newZoom))
+            {
+                _zoomLevelsCache.Add(newZoom);
+            }
+            
             ZoomCombobox.SelectedIndex = ZoomLevels.IndexOf(newZoom);
         }
     }
@@ -246,5 +256,11 @@ public partial class PdfViewer : UserControl, IDisposable
     private void ZoomInButton_OnClick(object? sender, RoutedEventArgs e)
     {
         Zoom(0.25);
+    }
+
+    private void MainImageScrollViewer_OnSizeChanged(object? sender, SizeChangedEventArgs e)
+    {
+        if (ZoomCombobox.SelectedItem is not Zoom zoom || zoom != 0) return;
+        AutomaticZoom();
     }
 }
