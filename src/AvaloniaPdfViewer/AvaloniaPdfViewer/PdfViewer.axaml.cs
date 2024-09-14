@@ -31,6 +31,27 @@ public partial class PdfViewer : UserControl, IDisposable
         
         InitializeComponent();
     }
+    
+    // ReSharper disable once UnusedMember.Local
+    private List<Zoom> ZoomLevels { get; } =
+    [
+        Zoom.Automatic,
+        0.25,
+        0.5,
+        0.75,
+        1,
+        1.25,
+        1.5,
+        1.75,
+        2,
+        2.5,
+        3,
+        3.5,
+        4,
+        4.5,
+        5
+    ];
+    
 
     private string? _source;
     public string? Source
@@ -50,6 +71,7 @@ public partial class PdfViewer : UserControl, IDisposable
     private Stream? _fileStream;
     private DisposingLimitCache<int, SKBitmap>? _bitmapCache;
     private bool _loading;
+    private int _pageIndex;
 
     private void Load(AvaloniaPropertyChangedEventArgs args)
     {
@@ -83,6 +105,7 @@ public partial class PdfViewer : UserControl, IDisposable
 #pragma warning restore CA1416
 
             MainImage.Source = skbitMap.ToAvaloniaImage();
+            ApplyZoom();
         }
         finally
         {
@@ -112,6 +135,7 @@ public partial class PdfViewer : UserControl, IDisposable
 #pragma warning disable CA1416
         MainImage.Source = PdfConvert.ToImage(_fileStream, new Index(index), leaveOpen: true).ToAvaloniaImage();
 #pragma warning restore CA1416
+        ApplyZoom();
     }
 
     private void CleanUp()
@@ -138,11 +162,41 @@ public partial class PdfViewer : UserControl, IDisposable
             disposable.Dispose();
         }
     }
-
-
+    
     public void Dispose()
     {
         CleanUp();
         _thumbnailImagesCache.Dispose();
+    }
+
+    private void ApplyZoom()
+    {
+        if (ZoomCombobox.SelectedItem is not Zoom zoom) return;
+        if (zoom > 0)
+        {
+            PercentageZoom(zoom);
+        }
+        else
+        {
+            AutomaticZoom();
+        }
+    }
+
+    private void AutomaticZoom()
+    {
+        var width = MainImageScrollViewer.Bounds.Size.Width;
+        var height = MainImageScrollViewer.Bounds.Size.Height;
+        if (width <= 0 || height <= 0) return;
+        MainImage.Width = width;
+        MainImage.Height = height;
+    }
+
+    private void PercentageZoom(double percentage)
+    {
+        if (PageSelector.Value == null) return;
+        var index = ((int)PageSelector.Value) - 1;
+        var imageSize = ThumbnailImages[index].Size;
+        MainImage.Width = imageSize.Width * percentage;
+        MainImage.Height = imageSize.Height * percentage;
     }
 }

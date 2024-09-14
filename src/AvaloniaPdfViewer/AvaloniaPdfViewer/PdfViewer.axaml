@@ -48,18 +48,7 @@
                         </PathIcon.Data>
                     </PathIcon>
                 </Button>
-                <ComboBox SelectedIndex="0" VerticalAlignment="Center">
-                    <ComboBoxItem>Automatic Zoom</ComboBoxItem>
-                    <ComboBoxItem>Actual Size</ComboBoxItem>
-                    <ComboBoxItem>Page Fit</ComboBoxItem>
-                    <ComboBoxItem>50%</ComboBoxItem>
-                    <ComboBoxItem>75%</ComboBoxItem>
-                    <ComboBoxItem>100%</ComboBoxItem>
-                    <ComboBoxItem>125%</ComboBoxItem>
-                    <ComboBoxItem>150%</ComboBoxItem>
-                    <ComboBoxItem>200%</ComboBoxItem>
-                    <ComboBoxItem>300%</ComboBoxItem>
-                    <ComboBoxItem>400%</ComboBoxItem>
+                <ComboBox x:Name="ZoomCombobox" ItemsSource="{Binding $parent[avaloniaPdfViewer:PdfViewer].ZoomLevels}" SelectedIndex="0" VerticalAlignment="Center" Width="160">
                 </ComboBox>
             </StackPanel>
         </Grid>
@@ -87,7 +76,7 @@
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
-        <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+        <ScrollViewer x:Name="MainImageScrollViewer" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
             <Image x:Name="MainImage" Stretch="Uniform"/>
         </ScrollViewer>
     </DockPanel>
