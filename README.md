@@ -1,14 +1,14 @@
-![Avalonia PDF Viewer](./icon.png)
+![Avalonia PDF Viewer](https://raw.githubusercontent.com/chrisg32/AvaloniaPdfViewer/main/icon.png)
 # Avalonia PDF Viewer: A PDF viewer for Avalonia UI
 
-![GitHub License](https://img.shields.io/github/license/chrisg32/AvaloniaPdfViewer)
-![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/chrisg32/AvaloniaPdfViewer/ci)
+[![GitHub License](https://img.shields.io/github/license/chrisg32/AvaloniaPdfViewer)](https://github.com/chrisg32/AvaloniaPdfViewer/blob/main/LICENSE)
+[![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/chrisg32/AvaloniaPdfViewer/ci.yml)](https://github.com/chrisg32/AvaloniaPdfViewer)
 [![Nuget](https://img.shields.io/nuget/v/AvaloniaPdfViewer)](https://www.nuget.org/packages/AvaloniaPdfViewer/)
-![NuGet Downloads](https://img.shields.io/nuget/dt/AvaloniaPdfViewer)
+[![NuGet Downloads](https://img.shields.io/nuget/dt/AvaloniaPdfViewer)](https://www.nuget.org/packages/AvaloniaPdfViewer/)
 
 **Avalonia PDF Viewer** in an [Avalonia UI](https://avaloniaui.net) control for viewing [PDF files](https://en.wikipedia.org/wiki/PDF).
 
-## Features
+## ✅ Features
 
 - Cross-platform (Windows, macOS, Linux)
 - PDF rendering using [PDFium](https://pdfium.googlesource.com/pdfium/) and [SkiaSharp](https://github.com/mono/SkiaSharp).
@@ -36,7 +36,7 @@ Add the `PdfViewer` control to your XAML file.
 <avaloniaPdfViewer:PdfViewer Source="{Binding FilePath}"/>
 ```
 
-## Source
+## ❤️ Attribution
 
 This library is built on top of these great open source projects.
 
@@ -46,8 +46,12 @@ This library is built on top of these great open source projects.
   - [SkiaSharp](https://github.com/mono/SkiaSharp) (cross-platform 2D graphics API)
 - [material-design-icons](https://github.com/google/material-design-icons) (Google font icons)
 
-## License
+## ⚖️ License
 
 Avalonia PDF Viewer is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details.
 
 HOWEVER, this project uses dependencies that are licensed under other licenses. Please check the licenses of the dependencies listed above before using this project.
+
+## 🙁 Limitations
+
+This control works by rendering the PDF pages into images. This means that features like text selection, search, and form filling are not and will never be supported.

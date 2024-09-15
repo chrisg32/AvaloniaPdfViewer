@@ -4,8 +4,36 @@
         <TargetFramework>net8.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
+        <RootNamespace>AvaloniaPdfViewer</RootNamespace>
+        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+        <Description>Avalonia PDF Viewer in an Avalonia UI control for viewing PDF files.</Description>
+        <Authors>Chris Gonzales</Authors>
+        <Version>0.0.1-pre</Version>
+        <PackageTags>Avalonia UI Control pdf</PackageTags>
+        <Copyright>Copyright 2024 Chris Gonzales</Copyright>
+        <PackageReadmeFile>README.md</PackageReadmeFile>
+        <PackageIconUrl>https://raw.githubusercontent.com/chrisg32/AvaloniaPdfViewer/main/icon.png</PackageIconUrl>
+        <PackageIcon>icon.png</PackageIcon>
+        <PackageProjectUrl>https://github.com/chrisg32/AvaloniaPdfViewer</PackageProjectUrl>
+        <PackageLicenseExpression>MIT</PackageLicenseExpression>
+        <PackageId>AvaloniaPdfViewer</PackageId>
+        <Company>Chris Gonzales</Company>
+        <Product>Avalonia PDF Viewer</Product>
+        <RepositoryType>Git</RepositoryType>
+        <RepositoryUrl>https://github.com/chrisg32/AvaloniaPdfViewer</RepositoryUrl>
+        <AssemblyName>AvaloniaPdfViewer</AssemblyName>
+        <NeutralLanguage>en-US</NeutralLanguage>
+        <PackageVersion>0.0.1-pre</PackageVersion>
+        <Title>Avalonia PDF Viewer</Title>
+        <AssemblyVersion>0.0.1-pre</AssemblyVersion>
+        <FileVersion>0.0.1-pre</FileVersion>
     </PropertyGroup>
 
+    <ItemGroup>
+        <None Include="../icon.png" Pack="true" PackagePath="" />
+        <None Include="../README.md" Pack="true" PackagePath="" />
+    </ItemGroup>
+    
     <ItemGroup>
       <PackageReference Include="Avalonia" Version="11.1.3" />
       <PackageReference Include="Avalonia.ReactiveUI" Version="11.1.3" />
@@ -15,10 +43,6 @@
         <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       </PackageReference>
       <PackageReference Include="PDFtoImage" Version="4.1.0" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <None Remove="Assets\Fonts\MaterialSymbolsOutlined.ttf" />
     </ItemGroup>
 
 </Project>
