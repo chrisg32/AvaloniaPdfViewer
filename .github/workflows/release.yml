@@ -1,0 +1,26 @@
+name: Release to NuGet
+
+# Controls when the action will run. Triggers the workflow when release is published
+on:
+  release:
+    types: [published]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 8.0.x
+      - name: Create NuGet Package
+        run: dotnet pack -c Release /p:Version=${{ github.event.release.tag_name }} /p:PackageReleaseNotes="See https://github.com/chrisg32/AvaloniaPdfViewer/releases/tag/${{ github.event.release.tag_name }}"
+        working-directory: ./src
+      - name: Archive NuGet Package
+        uses: actions/upload-artifact@v1
+        with:
+          name: AvaloniaPdfViewer
+          path: ./src/AvaloniaPdfViewer/bin/Release/AvaloniaPdfViewer.${{ github.event.release.tag_name }}.nupkg
+      - name: Publish Nuget Package
+        run: dotnet nuget push **/*.nupkg --api-key ${{ secrets.nuget_api_key }} --source https://api.nuget.org/v3/index.json --no-symbols true
