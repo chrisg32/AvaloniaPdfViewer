@@ -13,22 +13,14 @@ using PdfConvert = PDFtoImage.Conversion;
 namespace AvaloniaPdfViewer.Internals;
 
 //todo for later, make reactive and load images in background thread
-internal class DrawableThumbnailImage : IImage, IDisposable
+internal class DrawableThumbnailImage(SizeF size, Stream pdfStream, int index, DisposingLimitCache<int, SKBitmap> cache) : IImage, IDisposable
 {
-    private readonly DisposingLimitCache<int, SKBitmap> _cache;
-    private readonly CachingSkBitmapDrawOperation _drawOperation;
-    public int Index { get; }
+    private readonly CachingSkBitmapDrawOperation _drawOperation = new(index, pdfStream, cache);
+    public int Index { get; } = index;
+
     public int PageNumber => Index + 1;
     //todo handle in ui, being lazy right now
     public string PageNumberText => $"Page {PageNumber}";
-
-    public DrawableThumbnailImage(SizeF size, Stream pdfStream, int index, DisposingLimitCache<int, SKBitmap> cache)
-    {
-        _cache = cache;
-        Index = index;
-        Size = new Size(size.Width, size.Height);
-        _drawOperation = new CachingSkBitmapDrawOperation(index, pdfStream, cache);
-    }
 
     public void Draw(DrawingContext context, Rect sourceRect, Rect destRect)
     {
@@ -36,17 +28,18 @@ internal class DrawableThumbnailImage : IImage, IDisposable
         context.Custom(_drawOperation);
     }
 
-    public Size Size { get; }
+    public Size Size { get; } = new(size.Width, size.Height);
+
     public void Dispose()
     {
-        _cache.RemoveKey(Index);
+        cache.RemoveKey(Index);
     }
     
-    private class CachingSkBitmapDrawOperation(int index, Stream pdfStream, DisposingLimitCache<int, SKBitmap> cache) : ICustomDrawOperation
+    private sealed class CachingSkBitmapDrawOperation(int index, Stream pdfStream, DisposingLimitCache<int, SKBitmap> cache) : ICustomDrawOperation
     {
         
 
-        public virtual bool Equals(ICustomDrawOperation? other) => ReferenceEquals(this, other);
+        public bool Equals(ICustomDrawOperation? other) => ReferenceEquals(this, other);
 
         public void Dispose()
         {
@@ -61,7 +54,9 @@ internal class DrawableThumbnailImage : IImage, IDisposable
             if(!cache.TryGetValue(index, out var skBitmap))
             {
                 Debug.Write("NOT found in cache, loading...");
+#pragma warning disable CA1416
                 skBitmap = PdfConvert.ToImage(pdfStream, new Index(index), leaveOpen: true);
+#pragma warning restore CA1416
                 cache.Add(index, skBitmap);
             }
             else

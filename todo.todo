@@ -11,6 +11,8 @@ Preview Release:
       ☐ license
       ☐ nuget
       ☐ nuget downloads
+    ☐ Build
+    ☐ Publish to Nuget
   API:
     ✔ Pdf Source @done (24-09-14 08:08)
       ✔ File path (string) @done (24-09-14 08:08)
@@ -22,16 +24,17 @@ Preview Release:
     ☐ Page (two way binding) (DirectProperty)
     ☐ Zoom (two way binding) (DirectProperty)
   Control:
-    ☐ Zoom controls
+    ✔ Zoom controls @done (24-09-15 07:33)
       ✔ Handle window resize when automatic zoom @done (24-09-14 15:20)
     ✔ Toggle sidebar @done (24-09-14 08:09)
       ✘ Animation @cancelled (24-09-14 08:09)
     ✔ Page selection @done (24-09-14 08:09)
     ☐ Scrolling through pages (main view)
-    ☐ Guestures
-      ☐ Drag to move
-      ☐ Double click to zoom in
-      ☐ Right click to zoom out
+    ✔ Guestures @done (24-09-15 07:33)
+      ✔ Drag to move @done (24-09-15 07:33)
+      ✔ Double click to zoom in @done (24-09-15 07:33)
+      ✔ Shift click to zoom in @done (24-09-15 07:33)
+      ✔ Alt click to zoom out @done (24-09-15 07:33)
   Misc:
     ✔ Proper disposal/closing of streams @done (24-09-14 08:09)
     ✘ Need PdfToImage PR to be accepted and nuget package released @cancelled (24-09-13 14:50)

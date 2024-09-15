@@ -58,12 +58,9 @@ internal static class SkiaExtensions
 
         public void Draw(DrawingContext context, Rect sourceRect, Rect destRect)
         {
-            if (_drawImageOperation is null)
+            _drawImageOperation ??= new SKBitmapDrawOperation()
             {
-                _drawImageOperation = new SKBitmapDrawOperation()
-                {
-                    Bitmap = _source,
-                };
+                Bitmap = _source,
             };
             //changed from sourceRect to destRect
             _drawImageOperation.Bounds = destRect;
