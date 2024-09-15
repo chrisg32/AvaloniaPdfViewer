@@ -269,7 +269,22 @@ public partial class PdfViewer : UserControl, IDisposable
     private Point? _lastPosition;
     private void MainImageScrollViewer_OnPointerPressed(object? sender, PointerPressedEventArgs e)
     {
-        _pointerDown = true;
+        if (e.KeyModifiers.HasFlag(KeyModifiers.Alt))
+        {
+            Zoom(-0.25);
+            var position = e.GetPosition(MainImageScrollViewer);
+            MainImageScrollViewer.Offset = position;
+        }
+        else if(e.ClickCount > 1 || e.KeyModifiers.HasFlag(KeyModifiers.Shift))
+        {
+            Zoom(0.25);
+            var position = e.GetPosition(MainImageScrollViewer);
+            MainImageScrollViewer.Offset = position;
+        }
+        else
+        {
+            _pointerDown = true;
+        }
     }
 
     private void MainImageScrollViewer_OnPointerReleased(object? sender, PointerReleasedEventArgs e)
