@@ -1,14 +1,14 @@
 # Avalonia PDF Viewer
 
-An [Avalonia UI]() control for viewing [PDF files].
+An [Avalonia UI]() control for viewing [PDF files](https://en.wikipedia.org/wiki/PDF).
 
 This library is built on top of these great open source projects.
 
-- [material-design-icons](https://github.com/google/material-design-icons) (Google font icons)
+- [Avalonia](https://github.com/AvaloniaUI/Avalonia) (cross-platform UI framework for dotnet)
 - [PdfToImage](https://github.com/sungaila/PDFtoImage) (A .NET library to render PDF files into images.)
   - [PDFium](https://pdfium.googlesource.com/pdfium/) (native PDF renderer)
   - [SkiaSharp](https://github.com/mono/SkiaSharp) (cross-platform 2D graphics API)
-- [Avalonia](https://github.com/AvaloniaUI/Avalonia) (cross-platform UI framework for dotnet)
+- [material-design-icons](https://github.com/google/material-design-icons) (Google font icons)
 
 ## License
 
