@@ -1,17 +1,18 @@
 Preview Release:
   Branding:
-    ☐ Icon
-    ☐ README
-    ☐ Screenshots
+    ✔ Icon @done (24-09-15 09:44)
+    ✔ README @done (24-09-15 10:03)
+    ☐ Screenshots @next
+    ☐ Awesome avalonia
   Unit testing:
   CI/CD:
-    ☐ Badges
-      ☐ build
-      ☐ tests
-      ☐ license
-      ☐ nuget
-      ☐ nuget downloads
-    ☐ Build
+    ✔ Badges @done (24-09-15 10:03)
+      ✔ build @done (24-09-15 10:03)
+      ✘ tests @cancelled (24-09-15 09:44)
+      ✔ license @done (24-09-15 10:03)
+      ✔ nuget @done (24-09-15 10:03)
+      ✔ nuget downloads @done (24-09-15 10:03)
+    ✔ Build @done (24-09-15 09:44)
     ☐ Publish to Nuget
   API:
     ✔ Pdf Source @done (24-09-14 08:08)
