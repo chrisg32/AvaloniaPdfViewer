@@ -2,6 +2,7 @@ using System.Collections.ObjectModel;
 using System.Reactive.Linq;
 using Avalonia;
 using Avalonia.Controls;
+using Avalonia.Input;
 using Avalonia.Interactivity;
 using AvaloniaPdfViewer.Internals;
 using DynamicData;
@@ -262,5 +263,30 @@ public partial class PdfViewer : UserControl, IDisposable
     {
         if (ZoomCombobox.SelectedItem is not Zoom zoom || zoom != 0) return;
         AutomaticZoom();
+    }
+
+    private bool _pointerDown;
+    private Point? _lastPosition;
+    private void MainImageScrollViewer_OnPointerPressed(object? sender, PointerPressedEventArgs e)
+    {
+        _pointerDown = true;
+    }
+
+    private void MainImageScrollViewer_OnPointerReleased(object? sender, PointerReleasedEventArgs e)
+    {
+        _pointerDown = false;
+        _lastPosition = null;
+    }
+    
+    private void MainImageScrollViewer_OnPointerMoved(object? sender, PointerEventArgs e)
+    {
+        if(!_pointerDown) return;
+        var currentPosition = e.GetPosition(MainImageScrollViewer);
+        if (_lastPosition != null)
+        {
+            var delta = currentPosition - _lastPosition.Value;
+            MainImageScrollViewer.Offset -= delta;
+        }
+        _lastPosition = currentPosition;
     }
 }

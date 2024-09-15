@@ -75,7 +75,7 @@
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
-        <ScrollViewer x:Name="MainImageScrollViewer" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" SizeChanged="MainImageScrollViewer_OnSizeChanged">
+        <ScrollViewer x:Name="MainImageScrollViewer" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" SizeChanged="MainImageScrollViewer_OnSizeChanged" PointerPressed="MainImageScrollViewer_OnPointerPressed" PointerReleased="MainImageScrollViewer_OnPointerReleased" PointerMoved="MainImageScrollViewer_OnPointerMoved">
             <Image x:Name="MainImage" Stretch="Uniform"/>
         </ScrollViewer>
     </DockPanel>
