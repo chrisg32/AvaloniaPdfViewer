@@ -24,6 +24,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: AvaloniaPdfViewer
-          path: ./src/AvaloniaPdfViewer/bin/Release/AvaloniaPdfViewer.${{ github.event.release.tag_name }}.nupkg
+          path: ./src/bin/Release/AvaloniaPdfViewer.${{ github.event.release.tag_name }}.nupkg
       - name: Publish Nuget Package
         run: dotnet nuget push **/*.nupkg --api-key ${{ secrets.nuget_api_key }} --source https://api.nuget.org/v3/index.json --no-symbols true
+        working-directory: ./src
