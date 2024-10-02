@@ -21,6 +21,8 @@ public partial class PdfViewer : UserControl, IDisposable
     public static readonly DirectProperty<PdfViewer, bool> ShowSidebarProperty =
         AvaloniaProperty.RegisterDirect<PdfViewer, bool>(nameof(ShowSidebar), o => o.ShowSidebar, (o, v) => o.ShowSidebar = v);
 
+    public static readonly DirectProperty<PdfViewer, Zoom?> ZoomProperty =
+        AvaloniaProperty.RegisterDirect<PdfViewer, Zoom?>(nameof(Zoom), o => o.Zoom, (o, v) => o.Zoom = v);
     static PdfViewer()
     {
         SourceProperty.Changed.AddClassHandler<PdfViewer>((x, e) => x.Load(e));
@@ -211,12 +213,20 @@ public partial class PdfViewer : UserControl, IDisposable
     {
         var width = MainImageScrollViewer.Bounds.Size.Width;
         var height = MainImageScrollViewer.Bounds.Size.Height;
+        if (ZoomCombobox.SelectedItem is not Zoom currentZoom) return;
         if (width <= 0 || height <= 0) return;
         MainImage.Width = width;
         MainImage.Height = height;
+        RaisePropertyChanged(ZoomProperty, oldValue: currentZoom, 0);
+    }
+    
+    public Zoom? Zoom
+    {
+        get => ZoomCombobox.SelectedItem as Zoom?;
+        set => ZoomTo(value ?? 0);
     }
 
-    private void Zoom(double delta)
+    private void ZoomTo(Zoom zoom)
     {
         if (ZoomCombobox.SelectedItem is not Zoom currentZoom) return;
         if (currentZoom == 0)
@@ -235,25 +245,28 @@ public partial class PdfViewer : UserControl, IDisposable
         {
             _zoomLevelsCache.Remove(currentZoom);
         }
-        var newZoom = currentZoom + delta;
-        if (newZoom > 0)
+        if (zoom > 0)
         {
-            if (!_defaultZoomLevels.Contains(newZoom))
+            if (!_defaultZoomLevels.Contains(zoom))
             {
-                _zoomLevelsCache.Add(newZoom);
+                _zoomLevelsCache.Add(zoom);
             }
             
-            ZoomCombobox.SelectedIndex = ZoomLevels.IndexOf(newZoom);
+            ZoomCombobox.SelectedIndex = ZoomLevels.IndexOf(zoom);
         }
+        
+        RaisePropertyChanged(ZoomProperty, oldValue: currentZoom, zoom);
     }
     private void PercentageZoom(double percentage)
     {
         if (percentage <= 0) return;
         if (PageSelector.Value == null) return;
+        if (ZoomCombobox.SelectedItem is not Zoom currentZoom) return;
         var index = ((int)PageSelector.Value) - 1;
         var imageSize = ThumbnailImages[index].Size;
         MainImage.Width = imageSize.Width * percentage;
         MainImage.Height = imageSize.Height * percentage;
+        RaisePropertyChanged(ZoomProperty, oldValue: currentZoom, percentage);
     }
 
     private void ZoomCombobox_OnSelectionChanged(object? sender, SelectionChangedEventArgs e)
@@ -264,12 +277,16 @@ public partial class PdfViewer : UserControl, IDisposable
 
     private void ZoomOutButton_OnClick(object? sender, RoutedEventArgs e)
     {
-        Zoom(-0.25);
+        if (ZoomCombobox.SelectedItem is not Zoom currentZoom) return;
+        var zoom = currentZoom - 0.25;
+        ZoomTo(zoom);
     }
 
     private void ZoomInButton_OnClick(object? sender, RoutedEventArgs e)
     {
-        Zoom(0.25);
+        if (ZoomCombobox.SelectedItem is not Zoom currentZoom) return;
+        var zoom = currentZoom + 0.25;
+        ZoomTo(zoom);
     }
 
     private void MainImageScrollViewer_OnSizeChanged(object? sender, SizeChangedEventArgs e)
@@ -284,13 +301,17 @@ public partial class PdfViewer : UserControl, IDisposable
     {
         if (e.KeyModifiers.HasFlag(KeyModifiers.Alt))
         {
-            Zoom(-0.25);
+            if (ZoomCombobox.SelectedItem is not Zoom currentZoom) return;
+            var zoom = currentZoom - 0.25;
+            ZoomTo(zoom);
             var position = e.GetPosition(MainImageScrollViewer);
             MainImageScrollViewer.Offset = position;
         }
         else if(e.ClickCount > 1 || e.KeyModifiers.HasFlag(KeyModifiers.Shift))
         {
-            Zoom(0.25);
+            if (ZoomCombobox.SelectedItem is not Zoom currentZoom) return;
+            var zoom = currentZoom + 0.25;
+            ZoomTo(zoom);
             var position = e.GetPosition(MainImageScrollViewer);
             MainImageScrollViewer.Offset = position;
         }
