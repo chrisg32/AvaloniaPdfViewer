@@ -18,6 +18,9 @@ public partial class PdfViewer : UserControl, IDisposable
     public static readonly DirectProperty<PdfViewer, string?> SourceProperty =
         AvaloniaProperty.RegisterDirect<PdfViewer, string?>(nameof(Source), o => o.Source, (o, v) => o.Source = v);
 
+    public static readonly DirectProperty<PdfViewer, bool> ShowSidebarProperty =
+        AvaloniaProperty.RegisterDirect<PdfViewer, bool>(nameof(ShowSidebar), o => o.ShowSidebar, (o, v) => o.ShowSidebar = v);
+
     static PdfViewer()
     {
         SourceProperty.Changed.AddClassHandler<PdfViewer>((x, e) => x.Load(e));
@@ -48,6 +51,16 @@ public partial class PdfViewer : UserControl, IDisposable
     {
         get => _source;
         set => SetAndRaise(SourceProperty, ref _source, value);
+    }
+    
+    public bool ShowSidebar
+    {
+        get => ExpandSidebarButton.IsChecked ?? false;
+        set
+        {
+            ExpandSidebarButton.IsChecked = value;
+            RaisePropertyChanged(ShowSidebarProperty, oldValue: !value, value);
+        }
     }
 
     private readonly List<Zoom> _defaultZoomLevels =
